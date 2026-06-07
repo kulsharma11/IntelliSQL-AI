@@ -1,0 +1,41 @@
+# FastAPI
+fastapi    #optional, for building the API
+uvicorn  #optional, for running the FastAPI app
+
+# Streamlit
+streamlit
+
+# LangChain
+langchain
+langchain-core
+langchain-community
+langchain-ollama
+
+# Ollama
+ollama
+
+# Database
+sqlalchemy
+pymysql
+
+# Data Processing
+pandas
+numpy
+
+# Visualization
+plotly
+
+# SQL Validation
+sqlglot
+
+# Environment Variables
+python-dotenv
+
+# Validation
+pydantic
+
+# Pretty Tables
+tabulate
+
+# Testing
+pytest
