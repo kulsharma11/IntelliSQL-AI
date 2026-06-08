@@ -26,15 +26,15 @@ Built using **LangChain**, **Ollama**, **Qwen2.5**, **MySQL**, **Streamlit**, an
 
 ### Query Result Dashboard
 
-<img src = "assets\query_result_.png" width ="100%>
+<img src = "assets\query_result_.png" width ="100%">
 
 ### Visualization and AI Insight
 
-<img src = "assets\visualisation_Insight.png" width ="100%>
+<img src = "assets\visualisation_Insight.png" width ="100%">
 
 ### Database Selector
 
-<img src = "assets\database_selector.png" width ="100%>
+<img src = "assets\database_selector.png" width ="100%">
 
 ---
 
@@ -75,7 +75,7 @@ flowchart TD
 
 ## 🔄 Query Flow
 
-<img src = "assets\dataflow_IntelliSQL_Ai.png" width ="100%>
+<img src = "assets\dataflow_IntelliSQL_Ai.png" width ="100%">
 
 ---
 
