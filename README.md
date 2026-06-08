@@ -32,9 +32,6 @@ Built using **LangChain**, **Ollama**, **Qwen2.5**, **MySQL**, **Streamlit**, an
 
 <img src = "assets\visualisation_Insight.png" width ="100%">
 
-### Database Selector
-
-<img src = "assets\database_selector.png" width ="100%">
 
 ---
 
