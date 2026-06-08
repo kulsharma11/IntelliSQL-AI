@@ -1,415 +1,390 @@
-# 📊 IntelliSQL AI
+# 🚀 IntelliSQL AI
 
 > **Stop writing SQL. Start asking questions.**
-> 
-> Convert natural language questions into intelligent SQL queries, get results, visualizations, and AI-powered insights—all in seconds.
+
+IntelliSQL AI is an LLM-powered Natural Language Analytics Platform that converts plain English questions into SQL queries, executes them against your database, visualizes the results, and generates AI-powered business insights.
+
+Built using **LangChain**, **Ollama**, **Qwen2.5**, **MySQL**, **Streamlit**, and **Plotly**.
 
 ---
 
-## 🚀 What is IntelliSQL AI?
+## ✨ Features
 
-IntelliSQL AI is an intelligent SQL analytics platform that bridges the gap between human language and databases. Ask questions in plain English, and let AI handle the SQL complexity.
-
-### ✨ Key Features
-
-- **🤖 AI-Powered Query Generation** — Ask questions in plain English; IntelliSQL generates optimized SQL automatically
-- **📈 Auto-Visualization** — Intelligently detects the best chart type for your data
-- **💡 AI Insights** — Generates natural language summaries and insights from your results
-- **✅ SQL Validation** — Built-in validation ensures queries are safe and efficient
-- **🗄️ Multi-Database Support** — Works seamlessly with multiple databases
-- **📊 Query History** — Track and manage all your queries for future reference
-- **🎯 Schema-Aware** — Understands your database structure for accurate query generation
+* 🤖 Natural Language → SQL Conversion
+* 🧠 Schema-Aware Query Generation
+* ✅ SQL Validation & Safety Checks
+* 📊 Interactive Plotly Visualizations
+* 💡 AI-Powered Business Insights
+* 🗄️ Dynamic Database Selection
+* ⚡ Local LLM Inference using Ollama
+* 🔒 No External API Keys Required
+* 🔄 OpenAI-Compatible Architecture
 
 ---
 
-## 🏗️ Project Architecture
+## 📸 Screenshots
 
-IntelliSQL AI follows a modular, clean architecture designed for scalability and maintainability:
+### Dashboard
 
-### System Architecture Diagram
+![Dashboard](assests\query_result_.png)
 
-```mermaid
-graph TD
-    UI["🌐 Browser UI"]
-    
-    UI -->|Streamlit Session| STREAM["🎯 Streamlit App<br/>frontend/streamlit_app.py"]
-    
-    STREAM --> SL["📊 Schema Loader"]
-    STREAM --> SC["🤖 SQL Chain<br/>LangChain + Ollama/LLM"]
-    STREAM --> SV["✅ SQL Validator"]
-    
-    SL --> QE["🔧 Query Executor"]
-    SC --> QE
-    SV --> QE
-    
-    QE --> DATABASE["💾 MySQL / PostgreSQL<br/>Multi-Database Support"]
-    
-    STREAM --> CS["📈 Chart Selector"]
-    CS --> VIZ["📊 Visualization<br/>Plotly Charts"]
-    
-    STREAM --> IG["💡 Insight Generator<br/>AI Summaries"]
-    
-    VIZ --> OUTPUT["✨ Results + Visualizations + Insights"]
-    IG --> OUTPUT
-    OUTPUT --> UI
-```
+### Visualization
 
-### Project Structure
+![Visualization and Insight](assests\visualisation_Insight.png)
 
-```
-IntelliSQL AI/
-├── app/                          # Backend logic
-│   ├── chains/                   # LangChain workflows
-│   │   └── sql_chain.py          # NL → SQL conversion pipeline
-│   ├── database/                 # Database operations
-│   │   ├── schema_loader.py      # Load database schemas
-│   │   ├── query_executor.py     # Execute SQL queries
-│   │   └── database_manager.py   # Multi-database support
-│   ├── llm/                      # LLM integrations
-│   │   └── [LLM providers]       # Ollama, OpenAI, etc.
-│   ├── services/                 # Business logic
-│   │   ├── sql_validator.py      # Validate & sanitize SQL
-│   │   ├── chart_selector.py     # Auto-detect visualization type
-│   │   ├── insight_generator.py  # Generate AI insights
-│   │   └── query_history.py      # Store & retrieve queries
-│   └── main.py                   # CLI entry point
-├── frontend/                      # Web UI (Streamlit)
-│   ├── streamlit_app.py          # Main web app
-│   ├── pages/                    # Multi-page app pages
-│   └── components/               # Reusable UI components
-│       └── charts.py             # Chart rendering
-├── tests/                        # Test suite
-├── data/                         # Sample data & configs
-├── requirements.txt              # Python dependencies
-└── .env                          # Environment variables
-```
+### AI Insights
 
-### 🔄 Data Flow
+![Database Selector](assests\database_selector.png)
+
+---
+
+## 🏗️ Architecture
 
 ```mermaid
-graph TD
-    A["👤 User Question<br/>(Natural Language)"] --> B["🎯 Streamlit Web UI"]
-    B --> C["📊 Schema Loader"]
-    B --> D["🤖 SQL Chain<br/>LangChain + Ollama"]
-    
-    C -->|Load Schema| E["Database Metadata"]
-    D -->|Generate Query| E
-    
-    B --> F["✅ SQL Validator<br/>SQLGlot"]
-    F -->|Validate| E
-    
-    E --> G["🔧 Query Executor<br/>SQLAlchemy"]
-    G --> H["💾 Database<br/>MySQL/PostgreSQL"]
-    
-    H --> I["📊 Results DataFrame"]
-    I --> J["📈 Chart Selector"]
-    I --> K["💡 Insight Generator"]
-    
-    J -->|Plotly Visualization| L["✨ Display Results"]
-    K -->|AI Summary| L
-    L --> B
+flowchart TD
+
+    A["👤 User Question"] --> B["🎯 Streamlit Dashboard"]
+
+    B --> C["🗄️ Database Selection"]
+    C --> D["📊 Schema Loader"]
+
+    D --> E["🤖 SQL Generation Chain"]
+    E --> F["🦙 Ollama + Qwen2.5"]
+
+    F --> G["📝 Generated SQL"]
+
+    G --> H["✅ SQL Validator"]
+    H --> I["⚙️ Query Executor"]
+
+    I --> J["💾 MySQL Database"]
+
+    J --> K["📊 Pandas DataFrame"]
+
+    K --> L["📈 Plotly Visualization"]
+    K --> M["💡 Insight Generator"]
+
+    M --> N["🤖 Qwen2.5 Business Analysis"]
+
+    L --> O["✨ Dashboard Output"]
+    N --> O
+
+    O --> B
 ```
 
-### 🧩 Core Components
+---
 
-| Component | Purpose | Tech Stack |
-|-----------|---------|-----------|
-| **SQL Chain** | Converts natural language to SQL | LangChain + Ollama/OpenAI |
-| **Schema Loader** | Fetches database metadata | SQLAlchemy |
-| **Query Executor** | Runs SQL safely | SQLAlchemy + PyMySQL |
-| **Validator** | Ensures query correctness | SQLGlot |
-| **Chart Selector** | Picks optimal visualization | Plotly + ML logic |
-| **Insight Generator** | Summarizes results in English | LLM |
-| **Web UI** | Interactive dashboard | Streamlit |
+## 🔄 Query Flow
+
+```mermaid
+flowchart LR
+
+    A["Natural Language Query"]
+    --> B["Schema Loader"]
+
+    B --> C["Prompt Construction"]
+
+    C --> D["Qwen2.5 via Ollama"]
+
+    D --> E["SQL Generation"]
+
+    E --> F["SQL Validation"]
+
+    F --> G["MySQL Execution"]
+
+    G --> H["Results DataFrame"]
+
+    H --> I["Visualization"]
+
+    H --> J["AI Insights"]
+
+    I --> K["Dashboard"]
+    J --> K
+```
+
+---
+
+## ✨ Highlights
+
+* Converts natural language into executable SQL queries.
+* Dynamically loads database schemas at runtime.
+* Uses schema-aware prompting to reduce hallucinations.
+* Validates generated SQL before execution.
+* Generates interactive visualizations automatically.
+* Produces AI-generated business insights from query results.
+* Runs completely locally using Ollama and Qwen2.5.
+* Designed to support OpenAI-compatible models with minimal configuration changes.
+
+---
+
+## 📂 Project Structure
+
+```text
+IntelliSQL-AI/
+│
+├── app/
+│   ├── chains/
+│   │   ├── sql_chain.py
+│   │   └── insight_chain.py
+│   │
+│   ├── database/
+│   │   ├── connection.py
+│   │   ├── database_manager.py
+│   │   ├── schema_loader.py
+│   │   └── query_executor.py
+│   │
+│   ├── llm/
+│   │   ├── ollama_client.py
+│   │   └── prompts.py
+│   │
+│   └── services/
+│       ├── chart_selector.py
+│       ├── insight_generator.py
+│       └── sql_validator.py
+│
+├── frontend/
+│   ├── components/
+│   ├── pages/
+│   └── streamlit_app.py
+│
+├── data/
+│   ├── schema.sql
+│   └── seed_data.sql
+│
+├── tests/
+│
+├── .env.example
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* Streamlit
+
+### LLM Layer
+
+* Ollama
+* Qwen2.5:3B
+* LangChain
+
+### Database Layer
+
+* MySQL
+* SQLAlchemy
+* PyMySQL
+
+### Analytics Layer
+
+* Pandas
+* NumPy
+
+### Visualization
+
+* Plotly
+
+### Validation
+
+* SQLGlot
 
 ---
 
 ## 📋 Prerequisites
 
-Before you start, make sure you have:
+Before running the project, install:
 
-- **Python 3.9+** installed
-- **pip** (Python package manager)
-- **MySQL/PostgreSQL** (or any SQLAlchemy-compatible database)
-- **Ollama** or an OpenAI API key (for LLM functionality)
-- **Git** (for cloning the repository)
+* Python 3.10+
+* MySQL 8+
+* Git
+* Ollama
+
+Download Ollama:
+
+https://ollama.com
+
+Verify installation:
+
+```bash
+ollama --version
+```
 
 ---
 
-## ⚙️ Setup Instructions
+## 🤖 Install Qwen Model
 
-### 1️⃣ Clone the Repository
+Pull the model:
 
 ```bash
-git clone https://github.com/yourusername/IntelliSQL-AI.git
+ollama pull qwen2.5:3b
+```
+
+Verify:
+
+```bash
+ollama list
+```
+
+Start Ollama:
+
+```bash
+ollama serve
+```
+
+---
+
+## ⚙️ Setup
+
+### Clone Repository
+
+```bash
+git clone https://github.com/kulsharma11/IntelliSQL-AI.git
+
 cd IntelliSQL-AI
 ```
 
-### 2️⃣ Create a Virtual Environment
+### Create Virtual Environment
+
+Windows:
 
 ```bash
-# Create virtual environment
 python -m venv .venv
 
-# Activate it
-# On Windows:
 .venv\Scripts\activate
-# On macOS/Linux:
+```
+
+Linux / macOS:
+
+```bash
+python3 -m venv .venv
+
 source .venv/bin/activate
 ```
 
-### 3️⃣ Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Configure Environment Variables
+---
 
-Create a `.env` file in the project root:
+## 🗄️ Database Setup
 
-```env
-# Database Configuration
-DB_HOST=localhost
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_NAME=your_database
-DB_PORT=3306
-DB_TYPE=mysql  # or postgresql, sqlite, etc.
+Create database:
 
-# LLM Configuration (choose one)
-# For Ollama (local):
-OLLAMA_BASE_URL=http://localhost:11434
-LLM_MODEL=mistral  # or llama2, neural-chat, etc.
-
-# OR for OpenAI:
-OPENAI_API_KEY=your_openai_key
-LLM_MODEL=gpt-4  # or gpt-3.5-turbo
-
-# Optional: Query logging
-ENABLE_HISTORY=true
-HISTORY_DB=sqlite:///query_history.db
+```sql
+CREATE DATABASE analytics_db;
 ```
 
-### 5️⃣ Prepare Your Database
+Import schema:
 
-Ensure your database is running and accessible. The schema will be auto-loaded.
-
-**Optional:** Load sample data for testing:
 ```bash
-# If you have sample SQL scripts in the data/ folder
-mysql -u your_user -p your_database < data/sample_data.sql
+mysql -u root -p analytics_db < data/schema.sql
+```
+
+Import sample data:
+
+```bash
+mysql -u root -p analytics_db < data/seed_data.sql
 ```
 
 ---
 
-## 🎯 Quick Start
+## 🔑 Environment Variables
 
-### Web UI (Streamlit) - Recommended ⭐
+Create a `.env` file:
+
+```env
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=your_password
+
+OLLAMA_MODEL=qwen2.5:3b
+```
+
+---
+
+## ▶️ Run Application
+
+Start Ollama:
 
 ```bash
-# Start the Streamlit app
+ollama serve
+```
+
+Launch Streamlit:
+
+```bash
 streamlit run frontend/streamlit_app.py
 ```
 
-Open your browser at `http://localhost:8501` and start asking questions!
+Open:
 
-### CLI Interface (Alternative)
-
-```bash
-# Run the CLI version
-python -m app.main
-```
-
-Follow the prompts to enter your questions.
-
----
-
-## 💡 Usage Examples
-
-### Web UI Example
-1. Open the app in your browser
-2. Select your database from the sidebar
-3. Type: *"Show me the top 10 customers by revenue in the last quarter"*
-4. IntelliSQL AI will:
-   - Generate the SQL query
-   - Validate it
-   - Execute it
-   - Display results in a chart
-   - Provide AI-powered insights
-
-### CLI Example
-```
-=======================================
-Natural Language SQL Analytics
-=======================================
-
-Ask a question: How many orders were placed in January?
-
-Generating SQL...
-
-Generated SQL:
-SELECT COUNT(*) as order_count FROM orders WHERE MONTH(order_date) = 1;
-
-✅ SQL Valid
-
-Results:
-  order_count
-0         1523
+```text
+http://localhost:8501
 ```
 
 ---
 
-## 🧪 Testing
+## 💬 Example Questions
 
-Run the test suite:
+```text
+Show all customers from North region
 
-```bash
-# Run all tests
-pytest
+Show revenue by customer region
 
-# Run with verbose output
-pytest -v
+Show top 5 products by revenue
 
-# Run specific test file
-pytest tests/test_sql_chain.py
+Show monthly revenue
+
+Show revenue by product category
+
+Show customers who signed up in 2024
 ```
 
 ---
 
-## 🔐 Security Features
+## 🔒 Safety Features
 
-- **SQL Validation** — Prevents SQL injection attacks
-- **Schema Sanitization** — Only exposes safe schema information
-- **Query Logging** — Track all executed queries
-- **Error Handling** — Graceful error messages without exposing sensitive data
-
----
-
-## 🛠️ Configuration Reference
-
-### Supported Databases
-
-- ✅ MySQL
-- ✅ PostgreSQL
-- ✅ SQLite
-- ✅ MariaDB
-- ✅ Any SQLAlchemy-compatible database
-
-### Supported LLMs
-
-- **Ollama** (local, free, private)
-- **OpenAI** (GPT-4, GPT-3.5-turbo)
-- **Claude** (via LangChain)
-- **Any LangChain-supported LLM**
-
-### Visualization Types
-
-- 📊 Bar Charts
-- 📈 Line Charts
-- 🥧 Pie Charts
-- 📑 Tables
-- 🗺️ Geographic Maps (if applicable)
-- And more!
+* SQL validation using SQLGlot
+* Schema-aware query generation
+* Read-only analytics workflow
+* Hallucination reduction through schema grounding
+* Query execution safeguards
 
 ---
 
-## 📚 Project Structure Details
+## 🚀 Future Enhancements
 
-```
-app/chains/sql_chain.py
-├── Loads schema
-├── Builds LLM prompt
-├── Invokes LLM
-└── Extracts SQL
-
-app/services/sql_validator.py
-├── Parses SQL with SQLGlot
-├── Validates syntax
-├── Checks against schema
-└── Detects risky operations
-
-app/services/chart_selector.py
-├── Analyzes result columns
-├── Detects data types
-├── Selects best chart type
-└── Generates Plotly viz
-
-frontend/streamlit_app.py
-├── Database selection UI
-├── Query input area
-├── Result visualization
-└── Insights display
-```
+* Conversational analytics
+* PostgreSQL support
+* CSV / Excel ingestion
+* Query history tracking
+* Dashboard export
+* Docker deployment
+* OpenAI integration
+* Multi-user authentication
 
 ---
 
-## 🚀 Performance Tips
+## 📄 Resume Description
 
-- **Enable Query Caching** — Cache repeated queries to speed up subsequent runs
-- **Index Optimization** — Ensure your database has proper indexes on frequently queried columns
-- **Batch Operations** — Use IntelliSQL for analytical queries, not transactional operations
-- **Limit Results** — Ask for Top N results for faster execution
+> Built an LLM-powered analytics platform that converts natural language into validated SQL queries, executes them against relational databases, and generates visualizations and business insights using LangChain, Ollama, Qwen2.5, Streamlit, Plotly, SQLAlchemy, and MySQL.
 
 ---
 
-## 🤝 Contributing
+## 📜 License
 
-We'd love your contributions! To get started:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests (`pytest`)
-5. Commit with clear messages (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
+MIT License
 
 ---
 
-## 📝 Troubleshooting
+## ⭐ Support
 
-### Common Issues
+If you found this project useful, consider giving it a star on GitHub.
 
-**Issue:** "Database connection failed"
-```
-Solution: Check your .env file credentials and ensure the database is running
-```
-
-**Issue:** "LLM model not found"
-```
-Solution: If using Ollama, run: ollama pull mistral
-          Make sure Ollama is running: ollama serve
-```
-
-**Issue:** "SQL validation failed"
-```
-Solution: This means the AI-generated query has syntax issues. 
-          The validator caught it before execution—this is a good thing!
-```
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see the LICENSE file for details.
-
----
-
-## 🙋 Support
-
-- **Issues?** Open an issue on GitHub
-- **Questions?** Check the documentation or start a discussion
-- **Feature Requests?** We'd love to hear your ideas!
-
----
-
-## 🌟 Star Us!
-
-If IntelliSQL AI saves you time or makes your data analysis easier, please give us a ⭐ on GitHub!
-
----
-
-**Made with ❤️ by the IntelliSQL AI Team**
-
-*Convert questions to insights. No SQL required.*
+**IntelliSQL AI — Convert Questions into Insights.**
