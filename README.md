@@ -24,17 +24,17 @@ Built using **LangChain**, **Ollama**, **Qwen2.5**, **MySQL**, **Streamlit**, an
 
 ## 📸 Screenshots
 
-### Dashboard
+### Query Result Dashboard
 
-![Dashboard](assests\query_result_.png)
+<img src = "assests\query_result_.png" width ="100%>
 
-### Visualization
+### Visualization and AI Insight
 
-![Visualization and Insight](assests\visualisation_Insight.png)
+<img src = "assests\visualisation_Insight.png" width ="100%>
 
-### AI Insights
+### Database Selector
 
-![Database Selector](assests\database_selector.png)
+<img src = "assests\database_selector.png" width ="100%>
 
 ---
 
@@ -75,31 +75,7 @@ flowchart TD
 
 ## 🔄 Query Flow
 
-```mermaid
-flowchart LR
-
-    A["Natural Language Query"]
-    --> B["Schema Loader"]
-
-    B --> C["Prompt Construction"]
-
-    C --> D["Qwen2.5 via Ollama"]
-
-    D --> E["SQL Generation"]
-
-    E --> F["SQL Validation"]
-
-    F --> G["MySQL Execution"]
-
-    G --> H["Results DataFrame"]
-
-    H --> I["Visualization"]
-
-    H --> J["AI Insights"]
-
-    I --> K["Dashboard"]
-    J --> K
-```
+<img src = "assests\dataflow_IntelliSQL_Ai.png" width ="100%>
 
 ---
 
